@@ -1,0 +1,143 @@
+body {
+  color: #575757;
+  font-family: -apple-system, BlinkMacSystemFont,  'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.top , .form .formTop{
+  border-bottom: solid 1px #575757;
+}
+
+.top svg {
+  margin: 10px 20px 0 0;
+}
+
+.left , .right , .formLeft , .formRight{
+  height: 800px;
+}
+
+.left , .formLeft {
+  border-right: solid 1px #575757;
+}
+
+.left ul {
+  height: 735px;
+  list-style: none;
+  overflow-y: scroll;
+}
+
+.left ul li {
+  background-color: rgba(232, 232, 232, 0.5);
+  border-radius: 6px;
+}
+
+.left ul li .li div i {
+  color: blue;
+}
+
+.left ul li:hover{
+  background-color: #0d6efd;
+  color: white;
+  cursor: pointer;
+  transition-duration: .4s;
+}
+
+.active svg , li:hover svg{
+  fill: white!important;
+  transition-duration: .4s;
+}
+
+.active i , li:hover i{
+  color: white!important;
+  transition-duration: .4s;
+}
+
+.left ul .li {
+  max-height: 140px;
+}
+
+.left ul .li p {
+  max-width: 360px;
+  max-height: 95px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.right .none{
+  opacity: 0.3;
+  height: inherit;
+}
+
+.description {
+  height: 797px;
+  overflow-y: scroll;
+}
+
+.description h3 , .description h5 {
+  text-align: right;
+}
+
+.description h5 {
+  cursor: pointer;
+}
+
+.map-description {
+  height: 450px;
+}
+
+.formPath {
+  z-index: 2;
+  top: 0;
+  left: 0;
+}
+
+.form {
+  border: solid 3px #575757;
+  border-radius: 8px;
+}
+
+.form .formTop i {
+  cursor: pointer;
+}
+
+.form .formTop i:hover {
+  color: blue;
+}
+
+.formLeft input , .formLeft textarea {
+  border-radius: 6px;
+  border: 1px solid #575757;
+}
+
+.formLeft #shortDes {
+  height: 80px;
+}
+
+.formLeft #fullDes {
+  height: 250px;
+}
+
+.formLeft p {
+  text-align: right;
+  font-size: 12px;
+}
+
+.formLeft #addPathBtn {
+  font-size: 20px;
+  width: 30%;
+}
+
+@media (max-width: 1200px) {
+  .left , .formLeft{
+    border-right: none;
+    margin-bottom: 25px;
+    border-bottom: solid 1px #575757;
+  }
+}
