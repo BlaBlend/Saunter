@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Map from '../../containers/Map/MapSetData';
 
 import { withScriptjs, withGoogleMap } from 'react-google-maps'
-import { addTrack } from '../../redux/action/pathActions'
+import store from '../../mobx/store/store'
 import { environment } from '../../config/environment'
 import idGenerator from '../../utils/id-generator'
 
@@ -63,7 +63,7 @@ const Form: React.FC<{onHideDialog: Function }> = ({onHideDialog}) => {
     function addPath(){
         const payload = state
         payload.id = idGenerator()
-        addTrack(payload)
+        store.addTrack(payload)
     }
 
     function validateMap(){
@@ -82,35 +82,33 @@ const Form: React.FC<{onHideDialog: Function }> = ({onHideDialog}) => {
                     <i className="fas fa-times fa-2x mt-1" onClick={() => {onHideDialog(); deleteInfo(); }}></i>
                 </div>
                 <div className="col-xl-6 py-3 px-4 formLeft d-flex flex-column">
-                    <form>
-                        <div>
-                            <label htmlFor="title" className="d-block">Title:</label>
-                            <input className="mb-3 w-100" maxLength={70} name="title" value={state.title} onChange={onChangeTitle}/>
-                        </div>
-                        <div>
-                            <label htmlFor="shortDes" className="d-block">Short Description:</label>
-                            <textarea maxLength={160} className="mb-1 w-100" value={state.shortDes} onChange={onChangeShortDes} name="shortDes"/>
-                            <p className="m-0">Limit {state.shortDes.length} of 160</p>
-                        </div>
-                        <div>
-                            <label htmlFor="fullDes" className="d-block">Full description:</label>
-                            <textarea id="fullDes" className="w-100" name="fullDes" value={state.fullDes} onChange={onChangeFullDes}/>
-                        </div>
-                        <div className="m-auto">
-                            <i className="far fa-map fa-2x me-2"></i>
-                            <h2 className="my-auto d-inline">Length {state.distance}</h2>
-                        </div>
+                    <div>
+                        <label htmlFor="title" className="d-block">Title:</label>
+                        <input className="mb-3 w-100" maxLength={70} name="title" value={state.title} onChange={onChangeTitle}/>
+                    </div>
+                    <div>
+                        <label htmlFor="shortDes" className="d-block">Short Description:</label>
+                        <textarea maxLength={160} className="mb-1 w-100" value={state.shortDes} onChange={onChangeShortDes} name="shortDes"/>
+                        <p className="m-0">Limit {state.shortDes.length} of 160</p>
+                    </div>
+                    <div>
+                        <label htmlFor="fullDes" className="d-block">Full description:</label>
+                        <textarea id="fullDes" className="w-100" name="fullDes" value={state.fullDes} onChange={onChangeFullDes}/>
+                    </div>
+                    <div className="m-auto">
+                        <i className="far fa-map fa-2x me-2"></i>
+                        <h2 className="my-auto d-inline">Length {state.distance}</h2>
+                    </div>
 
-                        <button 
-                            type="button" 
-                            className="btn py-4 mx-auto mb-3 mt-auto border border-dark" 
-                            id="addPathBtn"
-                            onClick={() => { validateMap() }}
-                        >
-                            <i className="fas fa-check me-2"></i>
-                            Add path
-                        </button>
-                    </form>
+                    <button 
+                        type="button" 
+                        className="btn py-4 mx-auto mb-3 mt-auto border border-dark" 
+                        id="addPathBtn"
+                        onClick={() => { validateMap() }}
+                    >
+                        <i className="fas fa-check me-2"></i>
+                        Add path
+                    </button>
                 </div>
 
                 <div className="col-xl-6 formRight p-3">

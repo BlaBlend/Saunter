@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import Description from './Description'
 import NavIcon from '../NavIcon/NavIcon'
 
-import { store } from '../../redux/store/store';
+import store from '../../mobx/store/store';
 import { IState } from '../Form/Form'
+import { observer } from 'mobx-react-lite';
+import { autorun } from 'mobx';
 
 const DescriptionContainer: React.FC = () =>{
-    const [activeTrack, addActive] = useState<IState>()
-    store.subscribe(() => {
-        addActive(store.getState().tracks.find((track: IState) => track.id === store.getState().activeTrack))
-    })
+    let activeTrack = store.state.tracks.find((track: IState) => track.id === store.state.activeTrack)
 
     return (
         <div className="col-xl-6 right pe-0 ps-4 pb-4">
@@ -23,4 +22,4 @@ const DescriptionContainer: React.FC = () =>{
     )
 }
 
-export default DescriptionContainer
+export default observer(DescriptionContainer)

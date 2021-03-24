@@ -4,7 +4,7 @@ import Map from '../../containers/Map/MapGetData'
 import { IState } from '../Form/Form'
 import { environment } from '../../config/environment';
 import { withScriptjs, withGoogleMap } from "react-google-maps"
-import { removeTrack , toggleFavorite } from '../../redux/action/pathActions'
+import store from '../../mobx/store/store'
 
 const WrappedMap = withScriptjs(withGoogleMap(Map));
 
@@ -23,10 +23,10 @@ const Description: React.FC<{activeTrack: IState}> = ({activeTrack}) => (
                         mapElement={<div style={{height: '100%'}} />}
                     />
                 </div>
-                <h5 className="col-xl-12 text-primary mt-3" onClick={() => toggleFavorite(activeTrack.id)}>
+                <h5 className="col-xl-12 text-primary mt-3" onClick={() => store.toggleFavorite(activeTrack.id)}>
                     <u>{activeTrack.favorite ? 'Remove from' : 'Add to'} favorites</u>
                 </h5>
-                <h5 className="col-xl-12 text-danger" onClick={() => removeTrack(activeTrack.id)}><u>Remove</u></h5>
+                <h5 className="col-xl-12 text-danger" onClick={() => store.removeTrack(activeTrack.id)}><u>Remove</u></h5>
             </div>
         </div>
 )

@@ -1,25 +1,28 @@
 import React , { useEffect, useState } from 'react';
 import List from './List'
 
-import { store } from '../../redux/store/store';
+import store from '../../mobx/store/store';
 import { IState } from '../Form/Form'
+import { observer } from 'mobx-react-lite';
+import { autorun } from 'mobx';
+// tracks.sort((a: IState, b: IState) => (b.favorite > a.favorite) ? 1: -1)
 
 const ListContainer: React.FC = () => {
-    const [tracks, updateTracks] = useState<IState[]>([])
+    let tracksA:IState[] = []
     const [search, updateSearch] = useState<string>()
-    store.subscribe(() => {
-        getTracks()
-    })
+
+    getTracks()
 
     function getTracks(){
-        const tracks = store.getState().tracks
-        const tracksSorted = tracks.sort((a: IState, b: IState) => (b.favorite > a.favorite) ? 1: -1)
+        const tracks = store.state.tracks
+        const tracksSorted = tracks
         if(search){
             const searchString = search.toUpperCase()
             const tracksSearched = tracksSorted.filter((track: IState) => track.title.toUpperCase().includes(searchString) || track.fullDes.toUpperCase().includes(searchString))
-            return  updateTracks(tracksSearched)
+            tracksA = tracksSearched
+            return
         }
-        updateTracks(tracksSorted)
+        tracksA = tracksSorted
     }
 
     useEffect(() => getTracks(),[search])
@@ -33,10 +36,10 @@ const ListContainer: React.FC = () => {
             </div>
             
             <div id="divList">
-                <List tracks={tracks}></List>
+                <List tracks={tracksA}></List>
             </div>
         </div>
     )
 }
 
-export default ListContainer
+export default observer(ListContainer)

@@ -1,22 +1,18 @@
 import React, { useState } from 'react'
 import NavIcon from '../NavIcon/NavIcon' 
 
-import { store } from '../../redux/store/store'
-import { addActive } from '../../redux/action/pathActions'
+import store from '../../mobx/store/store'
 import { IState } from '../Form/Form'
+import { observer } from 'mobx-react-lite'
 
 const List: React.FC<{tracks: IState[]}> = ({tracks}) =>{    
-    const [activeElement , setActiveElement] = useState<string>()
-
-    store.subscribe(() => {
-        setActiveElement(store.getState().activeTrack)
-    })
+    const activeElement = store.state.activeTrack
 
     return (
         <ul className="p-0">
             {tracks && tracks.map(track => (
                 <li key={track.id} className={activeElement === track.id ? 'active bg-primary text-white': ''} 
-                onClick={() => addActive(track.id)}>
+                onClick={() => store.addActive(track.id)}>
                     <div className="li mb-2 py-1 pe-2 ps-3 d-flex justify-content-between align-items-center">
                         <NavIcon size="3em" className="flex-shrink-0"></NavIcon>
                         <div className="flex-grow-1 p-2">
@@ -34,4 +30,4 @@ const List: React.FC<{tracks: IState[]}> = ({tracks}) =>{
     )
 }
 
-export default List
+export default observer(List)
