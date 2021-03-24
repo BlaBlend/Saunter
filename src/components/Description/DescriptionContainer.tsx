@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import Description from './Description'
-import NavIcon from './NavIcon'
-import { store } from '../redux/store';
+import NavIcon from '../NavIcon/NavIcon'
 
-export default function DescriptionContainer(){
-    const [activeTrack, addActive] = useState()
+import { store } from '../../redux/store/store';
+import { IState } from '../Form/Form'
+
+const DescriptionContainer: React.FC = () =>{
+    const [activeTrack, addActive] = useState<IState>()
     store.subscribe(() => {
-        addActive(store.getState().tracks.find(track => track.id === store.getState().activeTrack))
+        addActive(store.getState().tracks.find((track: IState) => track.id === store.getState().activeTrack))
     })
 
     return (
@@ -20,3 +22,5 @@ export default function DescriptionContainer(){
         </div>  
     )
 }
+
+export default DescriptionContainer

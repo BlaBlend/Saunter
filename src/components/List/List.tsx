@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
-import NavIcon from './NavIcon' 
-import { store } from '../redux/store';
-import { addActive } from '../redux/pathActions';
+import React, { useState } from 'react'
+import NavIcon from '../NavIcon/NavIcon' 
 
-export default function List({tracks}){    
-    const [activeElement , setActiveElement] = useState()
+import { store } from '../../redux/store/store'
+import { addActive } from '../../redux/action/pathActions'
+import { IState } from '../Form/Form'
+
+const List: React.FC<{tracks: IState[]}> = ({tracks}) =>{    
+    const [activeElement , setActiveElement] = useState<string>()
 
     store.subscribe(() => {
         setActiveElement(store.getState().activeTrack)
     })
+
     return (
         <ul className="p-0">
             {tracks && tracks.map(track => (
@@ -30,3 +33,5 @@ export default function List({tracks}){
         </ul>
     )
 }
+
+export default List

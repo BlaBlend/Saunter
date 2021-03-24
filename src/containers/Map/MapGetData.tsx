@@ -1,7 +1,11 @@
 import React from 'react';
 import { GoogleMap, Marker, Polyline } from "react-google-maps"
 
-export default function Map(props) {
+interface IProps {
+    markers: {lat: number, lng: number}[]
+}
+
+const Map: React.FC<IProps> = props => {
     const markers = props.markers
 
     return (
@@ -12,15 +16,19 @@ export default function Map(props) {
             {markers.map(polyline => <Polyline 
                 key={polyline.lat} 
                 path={markers}
-                geodesic={true}
+                // geodesic={true}
                 options={{
-                strokeColor: "Red",
-                strokeOpacity: 1,
-                strokeWeight: 5
-                }} />)}
+                    strokeColor: "Red",
+                    strokeOpacity: 1,
+                    strokeWeight: 5
+                }} 
+            />)}
             {markers.map(marker => <Marker 
-            key={marker.lat} 
-            position={{lat: marker.lat , lng: marker.lng}} />)}
+                key={marker.lat} 
+                position={{lat: marker.lat , lng: marker.lng}} 
+            />)}
         </GoogleMap>
     );
-}  
+} 
+
+export default Map

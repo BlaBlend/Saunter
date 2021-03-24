@@ -1,17 +1,18 @@
 import React from 'react';
-import Map from './MapGetData'
+import Map from '../../containers/Map/MapGetData'
+
+import { IState } from '../Form/Form'
+import { environment } from '../../config/environment';
 import { withScriptjs, withGoogleMap } from "react-google-maps"
-import { environment } from '../config/environment';
-import { removeTrack , toggleFavorite } from '../redux/pathActions'
+import { removeTrack , toggleFavorite } from '../../redux/action/pathActions'
 
 const WrappedMap = withScriptjs(withGoogleMap(Map));
 
-export default function Description({activeTrack}){
-    return (
+const Description: React.FC<{activeTrack: IState}> = ({activeTrack}) => (
         <div className="description ms-1 pe-4">
             <div className="row"> 
-                <h2 className="col-xl-6">{activeTrack.title}</h2>
-                <h3 className="col-xl-6">{activeTrack.distance}</h3>
+                <h2 className="col-xl-10">{activeTrack.title}</h2>
+                <h3 className="col-xl-2">{activeTrack.distance}</h3>
                 <p className="mb-4">{activeTrack.fullDes}</p>
                 <div className="map-description">
                     <WrappedMap 
@@ -28,5 +29,6 @@ export default function Description({activeTrack}){
                 <h5 className="col-xl-12 text-danger" onClick={() => removeTrack(activeTrack.id)}><u>Remove</u></h5>
             </div>
         </div>
-    )
-}
+)
+
+export default Description

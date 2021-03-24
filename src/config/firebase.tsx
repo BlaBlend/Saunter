@@ -1,6 +1,6 @@
-import {store} from './redux/store'
-import firebase from 'firebase';
-import { environment } from './config/environment';
+import { store } from '../redux/store/store'
+import { environment } from './environment'
+import firebase from 'firebase'
 
 firebase.initializeApp(environment.firebaseConfig)
 

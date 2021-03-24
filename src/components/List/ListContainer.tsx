@@ -1,20 +1,22 @@
 import React , { useEffect, useState } from 'react';
-import { store } from '../redux/store';
 import List from './List'
 
-export default function ListContainer(){
-    const [tracks, updateTracks] = useState([])
-    const [search, updateSearch] = useState()
+import { store } from '../../redux/store/store';
+import { IState } from '../Form/Form'
+
+const ListContainer: React.FC = () => {
+    const [tracks, updateTracks] = useState<IState[]>([])
+    const [search, updateSearch] = useState<string>()
     store.subscribe(() => {
         getTracks()
     })
 
     function getTracks(){
         const tracks = store.getState().tracks
-        const tracksSorted = tracks.sort((a,b) =>  b.favorite - a.favorite)
+        const tracksSorted = tracks.sort((a: IState, b: IState) => (b.favorite > a.favorite) ? 1: -1)
         if(search){
             const searchString = search.toUpperCase()
-            const tracksSearched = tracksSorted.filter(track => track.title.toUpperCase().includes(searchString) || track.fullDes.toUpperCase().includes(searchString))
+            const tracksSearched = tracksSorted.filter((track: IState) => track.title.toUpperCase().includes(searchString) || track.fullDes.toUpperCase().includes(searchString))
             return  updateTracks(tracksSearched)
         }
         updateTracks(tracksSorted)
@@ -37,4 +39,4 @@ export default function ListContainer(){
     )
 }
 
-// 
+export default ListContainer
