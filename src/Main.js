@@ -17,6 +17,8 @@ export default class Main extends React.Component {
       isModalVisible: true
     })
   }
+  
+  console.log('test)
 
   hideDialog(){
     this.setState({
